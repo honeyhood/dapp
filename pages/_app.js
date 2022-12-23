@@ -1,6 +1,10 @@
 import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
-import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit';
+import {
+  RainbowKitProvider,
+  getDefaultWallets,
+  darkTheme,
+} from '@rainbow-me/rainbowkit';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
@@ -39,7 +43,7 @@ const wagmiClient = createClient({
 function MyApp({ Component, pageProps }) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
+      <RainbowKitProvider theme={darkTheme()} chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
