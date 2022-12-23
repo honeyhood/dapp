@@ -1,6 +1,5 @@
 import React from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import ConnectComponent from './ConnectComponent';
 
 const Navbar = () => {
   return (
@@ -8,7 +7,7 @@ const Navbar = () => {
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">WIRED</a>
       </div>
-      <ConnectComponent />
+      <ConnectButton />
     </div>
   );
 };

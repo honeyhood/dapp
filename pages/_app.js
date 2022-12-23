@@ -1,32 +1,40 @@
 import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
-import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit';
+import {
+  RainbowKitProvider,
+  getDefaultWallets,
+  darkTheme,
+} from '@rainbow-me/rainbowkit';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, goerli, polygonMumbai } from 'wagmi/chains';
+import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
-import AuthenticationContextProvider from '../contexts/authentication';
 
 const { chains, provider, webSocketProvider } = configureChains(
   [
+    mainnet,
     polygon,
-    polygonMumbai
+    optimism,
+    arbitrum,
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
   ],
   [
     alchemyProvider({
-      apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+      // This is Alchemy's default API key.
+      // You can get your own at https://dashboard.alchemyapi.io
+      apiKey: 'ZzXGbEtnybxKtjO16tkO8lhf9LgIyQg_',
     }),
     publicProvider(),
   ]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'Wired Network',
+  appName: 'RainbowKit App',
   chains,
 });
 
 const wagmiClient = createClient({
-  autoConnect: false,
+  autoConnect: true,
   connectors,
   provider,
   webSocketProvider,
@@ -35,10 +43,8 @@ const wagmiClient = createClient({
 function MyApp({ Component, pageProps }) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <AuthenticationContextProvider>
-          <Component {...pageProps} />
-        </AuthenticationContextProvider>
+      <RainbowKitProvider theme={darkTheme()} chains={chains}>
+        <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
   );
