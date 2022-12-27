@@ -1,7 +1,12 @@
 import Navbar from '../components/Navbar';
 import { React, useEffect, useState, useContext } from 'react'
+<<<<<<< HEAD
 import { client, challenge, authenticate } from '../api'
 import { useAccount } from 'wagmi';
+=======
+import { apolloClient, challenge, authenticate } from '../api'
+import { useAccount, useNetwork } from 'wagmi';
+>>>>>>> 12073f3 (:ambulance: Fix client to apolloClient)
 import { AuthenticationContext } from '../contexts/authentication';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
@@ -24,14 +29,14 @@ const ConnectComponent = () => {
   async function login() {
     try {
       /* first request the challenge from the API server */
-      const challengeInfo = await client.query({
+      const challengeInfo = await apolloClient.query({
         query: challenge,
         variables: { address }
       })
       /* ask the user to sign a message with the challenge info returned from the server */
       const signature = await signer.signMessage(challengeInfo.data.challenge.text)
       /* authenticate the user */
-      const authData = await client.mutate({
+      const authData = await apolloClient.mutate({
         mutation: authenticate,
         variables: {
           address, signature
