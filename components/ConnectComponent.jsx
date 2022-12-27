@@ -1,14 +1,19 @@
-import Navbar from '../components/Navbar';
 import { React, useEffect, useState, useContext } from 'react'
 import { client, challenge, authenticate } from '../api'
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { AuthenticationContext } from '../contexts/authentication';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import getLensHandle from '../helpers/get-lens-handle';
+import { createProfile } from '../helpers/create-testnet-profile';
+import { getAuthenticationToken, setAuthenticationToken } from '../state';
+import { profiles } from '../helpers/get-lens-profiles';
 
 const ConnectComponent = () => {
   const { address, connector } = useAccount();
+  const { chain } = useNetwork();
   const [signer, setSigner] = useState();
   const { authentication, setAuthentication } = useContext(AuthenticationContext);
+  const [ lensHandle, setLensHandle ] = useState(null);
 
   useEffect(() => {
     if (address) {
@@ -41,8 +46,26 @@ const ConnectComponent = () => {
       const { data: { authenticate: { accessToken }}} = authData
       console.log({ accessToken })
       setAuthentication(accessToken)
+      setAuthenticationToken(accessToken);
+
+      /* get the lens handle */
+      const lensHandle = await getLensHandle(address);
+      if (lensHandle)
+        setLensHandle(lensHandle);
+      
+      const addressProfiles = await profiles(address);
+      if (!lensHandle && addressProfiles.items && addressProfiles.items.length > 0)
+        setLensHandle(addressProfiles.items[0].handle);
     } catch (err) {
       console.log('Error signing in: ', err)
+    }
+  }
+
+  async function create() {
+    try {
+      await createProfile(address, authentication); 
+    } catch (err) {
+      console.log('Error creating profile: ', err)
     }
   }
 
@@ -63,7 +86,17 @@ const ConnectComponent = () => {
       }
       { /* once the user has authenticated, show them a success message */ }
       {
-        address && authentication && <h2>Successfully signed in!</h2>
+        address && authentication && lensHandle && <h2>{lensHandle}</h2>
+      }
+      {
+        address && authentication && !lensHandle && chain.id === 80001 && (
+          <div onClick={create}>
+            <button>Create Lens Profile</button>
+          </div>
+        )
+      }
+      {
+        address && authentication && !lensHandle && chain.id !== 80001 && <h2>Claim lens profile</h2>
       }
     </>
   );
