@@ -1,6 +1,4 @@
 import { React, useEffect, useState, useContext } from 'react';
-import { client, challenge, authenticate } from '../api';
-
 import { apolloClient, challenge, authenticate } from '../api';
 import { useAccount, useNetwork } from 'wagmi';
 import { AuthenticationContext } from '../contexts/authentication';
