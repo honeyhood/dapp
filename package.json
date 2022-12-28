@@ -12,7 +12,6 @@
     "@apollo/client": "^3.7.3",
     "@next/font": "13.1.0",
     "@rainbow-me/rainbowkit": "^0.8.1",
-    "antd": "^5.1.1",
     "cross-fetch": "^3.1.5",
     "daisyui": "^2.46.0",
     "ethers": "^5.7.2",
@@ -20,7 +19,8 @@
     "next": "13.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "wagmi": "^0.9.5"
+    "wagmi": "^0.9.5",
+    "web3.storage": "^4.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

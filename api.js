@@ -1,10 +1,17 @@
-import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache, gql } from '@apollo/client'
+import {
+  ApolloClient,
+  ApolloLink,
+  from,
+  HttpLink,
+  InMemoryCache,
+  gql,
+} from '@apollo/client';
 import { getAuthenticationToken } from './state';
 import fetch from 'cross-fetch';
 import { onError } from '@apollo/client/link/error';
 
 // const API_URL = 'https://api.lens.dev'
-const API_URL = 'https://api-mumbai.lens.dev/'
+const API_URL = 'https://api-mumbai.lens.dev/';
 
 const defaultOptions = {
   watchQuery: {
@@ -25,7 +32,9 @@ const httpLink = new HttpLink({
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
     );
 
   if (networkError) console.log(`[Network error]: ${networkError}`);
@@ -58,26 +67,16 @@ export const challenge = gql`
       text
     }
   }
-`
+`;
 
 export const authenticate = gql`
-  mutation Authenticate(
-    $address: EthereumAddress!
-    $signature: Signature!
-  ) {
-    authenticate(request: {
-      address: $address,
-      signature: $signature
-    }) {
+  mutation Authenticate($address: EthereumAddress!, $signature: Signature!) {
+    authenticate(request: { address: $address, signature: $signature }) {
       accessToken
       refreshToken
     }
   }
-`
-<<<<<<< HEAD
-=======
-
->>>>>>> aface4f (:sparkles: GetDefaultProfile, GetProfiles and CreateProfile helpers connected)
+`;
 export const getDefaultProfile = gql`
   query DefaultProfile($request: DefaultProfileRequest!) {
     defaultProfile(request: $request) {
@@ -97,10 +96,7 @@ export const getFollowing = gql`
       }
     }
   }
-<<<<<<< HEAD
-`
-=======
-`
+`;
 
 export const createProfileMutation = gql`
   mutation CreateProfile($request: CreateProfileRequest!) {
@@ -114,7 +110,7 @@ export const createProfileMutation = gql`
       __typename
     }
   }
-`
+`;
 
 export const getProfiles = gql`
   query Profiles($request: ProfileQueryRequest!) {
@@ -125,5 +121,37 @@ export const getProfiles = gql`
       }
     }
   }
-`
->>>>>>> aface4f (:sparkles: GetDefaultProfile, GetProfiles and CreateProfile helpers connected)
+`;
+
+export const createPostMutation = gql`
+  mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
+    createPostTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          PostWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          contentURI
+          collectModule
+          collectModuleInitData
+          referenceModule
+          referenceModuleInitData
+        }
+      }
+    }
+  }
+`;

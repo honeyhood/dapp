@@ -1,4 +1,4 @@
-import { apolloClient, getDefaultProfile } from '../api'
+import { apolloClient, getDefaultProfile } from '../api';
 
 export default async function getLensHandle(address) {
   try {
@@ -6,20 +6,19 @@ export default async function getLensHandle(address) {
       query: getDefaultProfile,
       variables: {
         request: {
-          ethereumAddress: address
-        }
-      }
-    })
+          ethereumAddress: address,
+        },
+      },
+    });
 
-    console.log(response)
+    console.log(response);
 
     if (response.data.defaultProfile) {
-      return response.data.defaultProfile.handle
+      return response.data.defaultProfile.handle;
     }
 
-    return null
-  }
-  catch (err) {
+    return null;
+  } catch (err) {
     console.log(err);
   }
 }
