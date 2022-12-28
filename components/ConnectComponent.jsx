@@ -64,6 +64,9 @@ const ConnectComponent = () => {
   async function create() {
     try {
       await createProfile(address, authentication); 
+      const addressProfiles = await profiles(address);
+      if (!lensHandle && addressProfiles.items && addressProfiles.items.length > 0)
+        setLensHandle(addressProfiles.items[0].handle);
     } catch (err) {
       console.log('Error creating profile: ', err)
     }
