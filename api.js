@@ -3,8 +3,13 @@ import { getAuthenticationToken } from './state';
 import fetch from 'cross-fetch';
 import { onError } from '@apollo/client/link/error';
 
+<<<<<<< HEAD
+// const API_URL = 'https://api.lens.dev'
+const API_URL = 'https://api-mumbai.lens.dev/'
+=======
 const API_URL = 'https://api.lens.dev'
 // const API_URL = 'https://api-mumbai.lens.dev/'
+>>>>>>> 276f0dbf73e812f690ad43a4869465281de8c0b7
 
 const defaultOptions = {
   watchQuery: {
@@ -22,8 +27,11 @@ const httpLink = new HttpLink({
   fetch,
 });
 
+<<<<<<< HEAD
+=======
 export const PROFILE_ID = "0x05"
 
+>>>>>>> 276f0dbf73e812f690ad43a4869465281de8c0b7
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>
@@ -76,7 +84,14 @@ export const authenticate = gql`
     }
   }
 `
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
+>>>>>>> aface4f (:sparkles: GetDefaultProfile, GetProfiles and CreateProfile helpers connected)
+=======
+
+>>>>>>> 276f0dbf73e812f690ad43a4869465281de8c0b7
 export const getDefaultProfile = gql`
   query DefaultProfile($request: DefaultProfileRequest!) {
     defaultProfile(request: $request) {
@@ -96,6 +111,12 @@ export const getFollowing = gql`
       }
     }
   }
+<<<<<<< HEAD
+<<<<<<< HEAD
+`
+=======
+=======
+>>>>>>> 276f0dbf73e812f690ad43a4869465281de8c0b7
 `
 
 export const createProfileMutation = gql`
@@ -122,6 +143,9 @@ export const getProfiles = gql`
     }
   }
 `
+<<<<<<< HEAD
+>>>>>>> aface4f (:sparkles: GetDefaultProfile, GetProfiles and CreateProfile helpers connected)
+=======
 
 export const profileFeed = gql`
 query Feed($request: FeedRequest!) {
@@ -147,3 +171,4 @@ query Feed($request: FeedRequest!) {
   }
 }
 `
+>>>>>>> 276f0dbf73e812f690ad43a4869465281de8c0b7

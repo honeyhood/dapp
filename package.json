@@ -15,7 +15,11 @@
     "@lifi/widget": "^1.27.2",
     "@next/font": "13.1.0",
     "@rainbow-me/rainbowkit": "^0.8.1",
+<<<<<<< HEAD
+    "antd": "^5.1.1",
+=======
     "antd": "^5.1.2",
+>>>>>>> 276f0dbf73e812f690ad43a4869465281de8c0b7
     "cross-fetch": "^3.1.5",
     "daisyui": "^2.46.0",
     "ethers": "^5.7.2",
