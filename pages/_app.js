@@ -15,7 +15,7 @@ import { publicProvider } from 'wagmi/providers/public';
 import AuthenticationContextProvider from '../contexts/authentication';
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [polygon, polygonMumbai],
+  [polygonMumbai],
   [
     alchemyProvider({
       apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
