@@ -69,7 +69,7 @@ export default function Hero() {
             </div>
             <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
               <a
-                href="#"
+                href="/app"
                 className="inline-block rounded-lg bg-violet-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-violet-600 hover:bg-violet-700 hover:ring-violet-700"
               >
                 Launch App
@@ -115,7 +115,7 @@ export default function Hero() {
                   </div>
                   <div className="py-6">
                     <a
-                      href="#"
+                      href="/app"
                       className="inline-block rounded-lg bg-violet-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-violet-600 hover:bg-violet-700 hover:ring-violet-700"
                     >
                       Launch App
