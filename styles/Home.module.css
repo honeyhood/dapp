@@ -109,6 +109,11 @@
   position: relative;
 }
 
+.gradient {
+  background: rgb(233,238,100);
+  background: linear-gradient(230deg, rgba(233,238,100,1) 7%, rgba(255,255,255,1) 100%);
+}
+
 .thirteen {
   display: flex;
   justify-content: center;
