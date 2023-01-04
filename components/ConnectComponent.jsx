@@ -73,7 +73,7 @@ const ConnectComponent = () => {
   }
 
   return (
-    <>
+    <div>
       { /* if the user has connected their wallet but has not yet authenticated, show them a login button */ }
       {
         !address && (
@@ -83,25 +83,31 @@ const ConnectComponent = () => {
       {
         address && !authentication && (
           <div onClick={login}>
-            <button>Login</button>
+            <a href='#' style={{
+              color: 'white',
+            }} className='inline-block rounded-lg bg-violet-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-violet-600 hover:bg-violet-700 hover:ring-violet-700'>Login</a>
           </div>
         )
       }
       { /* once the user has authenticated, show them a success message */ }
       {
-        address && authentication && lensHandle && <h2>{lensHandle}</h2>
+        address && authentication && lensHandle && <a href='#' style={{
+          color: 'white',
+        }}  className='inline-block rounded-lg bg-violet-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-violet-600 hover:bg-violet-700 hover:ring-violet-700'>{lensHandle}</a>
       }
       {
         address && authentication && !lensHandle && chain.id === 80001 && (
           <div onClick={create}>
-            <button>Create Lens Profile</button>
+            <a href='#' style={{
+              color: 'white',
+            }}  className='inline-block rounded-lg bg-violet-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-violet-600 hover:bg-violet-700 hover:ring-violet-700'>Create Lens Profile</a>
           </div>
         )
       }
       {
         address && authentication && !lensHandle && chain.id !== 80001 && <h2>Claim lens profile</h2>
       }
-    </>
+    </div>
   );
 }
 

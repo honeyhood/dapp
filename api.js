@@ -3,8 +3,8 @@ import { getAuthenticationToken } from './state';
 import fetch from 'cross-fetch';
 import { onError } from '@apollo/client/link/error';
 
-// const API_URL = 'https://api.lens.dev'
-const API_URL = 'https://api-mumbai.lens.dev/'
+const API_URL = 'https://api.lens.dev'
+// const API_URL = 'https://api-mumbai.lens.dev/'
 
 const defaultOptions = {
   watchQuery: {
@@ -21,6 +21,8 @@ const httpLink = new HttpLink({
   uri: API_URL,
   fetch,
 });
+
+export const PROFILE_ID = "0x05"
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
@@ -119,4 +121,29 @@ export const getProfiles = gql`
       }
     }
   }
+`
+
+export const profileFeed = gql`
+query Feed($request: FeedRequest!) {
+  feed(request: $request) {
+    items {
+      root {
+        __typename
+        ... on Post {
+          metadata {
+            name
+            description
+            image
+            content
+          }
+        }
+      }
+    }
+    pageInfo {
+      prev
+      next
+      totalCount
+    }
+  }
+}
 `
